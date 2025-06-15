@@ -1,4 +1,3 @@
-
 /* eslint-disable react/no-unescaped-entities */
 import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from 'react-type-animation';
@@ -94,7 +93,9 @@ export const Home = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-4 right-4 w-80 h-32 bg-gray-900 rounded-lg border border-emerald-400/30 overflow-hidden shadow-lg"
+          className="fixed bottom-4 right-4 w-80 h-32 bg-gray-900 rounded-lg border border-emerald-400/30 
+                     overflow-hidden shadow-lg z-50 
+                     md:block hidden" // Hide on mobile, show on medium screens and up
         >
           <div className="bg-gray-800 p-2 flex items-center">
             <div className="flex space-x-2">
@@ -105,6 +106,44 @@ export const Home = () => {
             <span className="ml-2 text-sm text-gray-400">Terminal</span>
           </div>
           <div className="p-4 font-mono text-sm">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSnippet}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-emerald-400"
+              >
+                $ {codeSnippets[currentSnippet]}
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="inline-block ml-1"
+                >
+                  ▋
+                </motion.span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
+
+        {/* Mobile Terminal (Smaller and repositioned) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-20 right-2 w-64 h-24 bg-gray-900 rounded-lg border border-emerald-400/30 
+                     overflow-hidden shadow-lg z-50 
+                     md:hidden block" // Show on mobile, hide on medium screens and up
+        >
+          <div className="bg-gray-800 p-1 flex items-center">
+            <div className="flex space-x-1">
+              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            </div>
+            <span className="ml-2 text-xs text-gray-400">Terminal</span>
+          </div>
+          <div className="p-2 font-mono text-xs">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSnippet}
@@ -343,7 +382,7 @@ export const Home = () => {
         </motion.section>
 
         {/* Content Sections */}
-        <div className="space-y-32 mt-32">
+        <div className="space-y-24 mt-40">
           {/* About Section */}
           <motion.section
             id="about"
@@ -351,7 +390,7 @@ export const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="scroll-mt-24"
+            className="scroll-mt-24 mt-96 sm:mt-64 md:mt-72 lg:mt-32"//bile margin-top
           >
             <About />
           </motion.section>
