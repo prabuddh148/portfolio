@@ -25,7 +25,7 @@ const Loader = ({ setIsLoading }) => {
       setTimeout(() => {
         setShowLoader(false);
         setIsLoading(false);
-      }, 1000);
+      },10000);
     }
   }, [progress, setIsLoading]);
 
